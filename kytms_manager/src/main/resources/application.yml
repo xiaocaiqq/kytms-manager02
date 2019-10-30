@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+# 数据源配置
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kytms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  # 模板引擎配置
+    thymeleaf:
+      #缓冲的配置
+      cache: false
+      check-template: true
+      check-template-location: true
+      #开启MVC thymeleaf 视图解析
+      enabled: true
+      encoding: utf-8
+      mode: HTML5
+      prefix: classpath:/templates/
+      suffix: .html
+
+  # redis配置
+#  redis:
+#    host: 192.168.43.240
+
+mybatis-plus:
+#  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.bdqn.t28.kytms_manager.pojo
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      id-type: auto
